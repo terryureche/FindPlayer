@@ -1,10 +1,18 @@
 import * as FacebookSDK from 'expo-facebook';
 import { UserData } from '../types/types';
 
+//react-query -> db
+//redux-saga
+
+
 class Facebook {
     private _userId!: string;
     private _token!: string;
     private _name!: string;
+
+    getSdk() {
+        return FacebookSDK;
+    }
 
     async login() {
         try {
