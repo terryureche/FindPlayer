@@ -1,5 +1,6 @@
 import React, { useReducer, useState, createContext } from 'react';
 import { userReducer } from './loginReducers';
+import { InitialStateType, UserLoginData } from './type';
 
 
 const initialState: InitialStateType = {
@@ -8,14 +9,16 @@ const initialState: InitialStateType = {
         isLogged: false,
         token: '',
         userName: '',
-        profilePictureUrl: ''
+        profilePictureUrl: '',
+        initialSetup: true,
     }
 };
 
 const LoginContext = createContext<{
     state: InitialStateType,
     dispatch: React.Dispatch<any>
-}>({
+}>
+({
     state: initialState,
     dispatch: () => null
 });

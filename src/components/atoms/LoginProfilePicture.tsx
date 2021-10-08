@@ -1,16 +1,14 @@
-import * as React from 'react';
-import { Image } from 'react-native';
+import React from 'react';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 import { Text, View } from '../Themed';
+import tw from 'tailwind-react-native-classnames';
 
-export default function LoginProfilePicture({ url }: {url: string}) {
-  console.log(url);
+export default function LoginProfilePicture({ url, imageStyle = '' }: {url: string, imageStyle?: Object}) {
+  console.log(imageStyle);
   return (
-    <View>
+    <View style={tw`flex items-center justify-center`}>
         <Image
-        style={{
-          width: 150,
-          height: 150
-        }}
+        style={[tw`w-36 h-36 rounded-full  border-2`, imageStyle] as StyleProp<ImageStyle>}
             source={{uri: url}}
         />
     </View>

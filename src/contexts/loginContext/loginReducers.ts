@@ -1,3 +1,5 @@
+import { LoginActions, LoginTypes, UserLoginData } from "./type";
+
 export const userReducer = (state: UserLoginData, action: LoginActions) => {
     switch (action.type) {
         case LoginTypes.Update:
@@ -7,7 +9,8 @@ export const userReducer = (state: UserLoginData, action: LoginActions) => {
                     isLogged: action.payload.isLogged,
                     token: action.payload.token,
                     userName: action.payload.userName,
-                    profilePictureUrl: action.payload.profilePictureUrl
+                    profilePictureUrl: action.payload.profilePictureUrl,
+                    initialSetup: action.payload.initialSetup
                 }
             );
         default:
