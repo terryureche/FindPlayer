@@ -24,6 +24,9 @@ import { LoginProvider } from '../contexts/loginContext/loginContext';
 import { LoginContext } from '../contexts/loginContext/loginContext';
 import { View } from '../components/Themed';
 import tw from 'tailwind-react-native-classnames';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -31,7 +34,9 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <LoginProvider>
-        <RootNavigator />
+          <QueryClientProvider client={queryClient}>
+            <RootNavigator />
+          </QueryClientProvider>
       </LoginProvider>
     </NavigationContainer>
   );

@@ -38,10 +38,36 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   NativeStackScreenProps<RootStackParamList>
 >;
 
+export type UserConfigLocation = {
+  city: string | null
+};
+
 export type UserData = {
   id: string,
   token: string,
   isLogged: boolean,
   userName: string,
   pictureUrl: string,
+}
+
+export type CountryType = {
+  country_name: string | undefined,
+  country_short_name: string | undefined,
+  country_phone_code: string | undefined
+}
+export type StateType = {
+  state_name: string | undefined,
+}
+
+export type CityType = {
+  city_name: string | undefined,
+}
+
+export type LocationRequestType = {
+  config: any,
+  data: Array<CountryType | CityType | StateType>,
+  headers: any,
+  request: any,
+  status: number,
+  statusText: unknown
 }

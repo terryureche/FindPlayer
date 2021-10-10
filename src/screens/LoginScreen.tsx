@@ -5,7 +5,6 @@ import { RootTabScreenProps, UserData } from './../types/types';
 import Facebook from '../services/Facebook';
 import LoginProfilePicture from '../components/atoms/LoginProfilePicture';
 import { LoginContext } from '../contexts/loginContext/loginContext';
-import tw from 'tailwind-react-native-classnames';
 import { LoginTypes } from '../contexts/loginContext/type';
 
 export default function Login({ navigation }: RootTabScreenProps<'TabOne'>) {
