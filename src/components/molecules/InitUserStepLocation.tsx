@@ -9,7 +9,7 @@ import { UserConfigLocation } from '../../types/types';
 import SelectLocationManual from '../atoms/SelectLocationManual';
 import { Alert } from 'react-native';
 
-export default function InitUserStep2(
+export default function InitUserStepLocation(
     { setCurrentStep, currentLocation, setCurrentLocation, locationToken }: {
         setCurrentStep: Dispatch<SetStateAction<number>>,
         currentLocation: UserConfigLocation,

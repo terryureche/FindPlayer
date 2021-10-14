@@ -3,10 +3,10 @@ import { Button, Overlay } from 'react-native-elements';
 import { Text, View } from '../Themed';
 import { Image } from 'react-native-elements';
 import tw from 'tailwind-react-native-classnames';
-import { UniversalDataToken } from './../../constants/Tokens';
+import { UniversalDataToken } from '../../constants/Tokens';
 import axios from 'axios';
 
-export default function InitUserStep1(
+export default function InitUserWelcome(
     {setCurrentStep, setLocationToken}:
     {
         setCurrentStep: Dispatch<SetStateAction<number>>,
