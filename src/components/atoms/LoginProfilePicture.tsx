@@ -4,7 +4,6 @@ import { Text, View } from '../Themed';
 import tw from 'tailwind-react-native-classnames';
 
 export default function LoginProfilePicture({ url, imageStyle = '' }: {url: string, imageStyle?: Object}) {
-  console.log(imageStyle);
   return (
     <View style={tw`flex items-center justify-center`}>
         <Image

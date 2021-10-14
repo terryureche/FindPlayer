@@ -21,7 +21,7 @@ export default function Login({ navigation }: RootTabScreenProps<'TabOne'>) {
         setProfilePictureUrl(userData.pictureUrl);
 
         dispatch({
-          type: LoginTypes.Update,
+          type: LoginTypes.UpdateLogin,
           payload: {
             id: userData.id,
             isLogged: true,
@@ -44,7 +44,7 @@ export default function Login({ navigation }: RootTabScreenProps<'TabOne'>) {
 
     async function guess() {
       dispatch({
-        type: LoginTypes.Update,
+        type: LoginTypes.UpdateLogin,
         payload: {
           isLogged: false,
           profilePictureUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/192px-Question_Mark.png'

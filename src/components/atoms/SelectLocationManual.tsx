@@ -91,7 +91,7 @@ export default function SelectLocationManual(
     }
 
     return (
-        <View>
+        <View style={tw`bg-indigo-50`}>
             <View style={tw`bg-indigo-50 flex-row`}>
                 <ExternalPickerCountry
                     fetchLocation={fetchCountry}

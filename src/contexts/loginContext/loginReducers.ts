@@ -2,7 +2,7 @@ import { LoginActions, LoginTypes, UserLoginData } from "./type";
 
 export const userReducer = (state: UserLoginData, action: LoginActions) => {
     switch (action.type) {
-        case LoginTypes.Update:
+        case LoginTypes.UpdateLogin:
             return Object.assign({}, state,
                 {
                     id: action.payload.id,
@@ -10,10 +10,19 @@ export const userReducer = (state: UserLoginData, action: LoginActions) => {
                     token: action.payload.token,
                     userName: action.payload.userName,
                     profilePictureUrl: action.payload.profilePictureUrl,
-                    initialSetup: action.payload.initialSetup,
-                    location: action.payload.location,
+                    initialSetup: action.payload.initialSetup
                 }
             );
+        case LoginTypes.UpdateLocation:
+                return Object.assign({}, state,
+                    {
+                        location: action.payload.location
+                    });
+        case LoginTypes.UpdateQualities:
+                    return Object.assign({}, state,
+                        {
+                            playerQualities: action.payload.playerQualities
+                        })
         default:
             return state;
     }

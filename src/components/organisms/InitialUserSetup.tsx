@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Overlay } from 'react-native-elements';
 import { Text } from '../Themed';
 import tw from 'tailwind-react-native-classnames';
 import InitUserWelcome from '../molecules/InitUserWelcome';
 import InitUserStepLocation from '../molecules/InitUserStepLocation';
 import { UserConfigLocation } from '../../types/types';
+import { LoginTypes } from '../../contexts/loginContext/type';
+import InitUserStepPersonalDescription from '../molecules/InitUserStepPersonalDescription';
 
-export default function InitialUserSetup({setVisible, isVisible}: {setVisible: any, isVisible: boolean}) {
+export default function InitialUserSetup({
+        setVisible,
+        isVisible,
+        userContextDispatch,
+    }: {
+        setVisible: any,
+        isVisible: boolean,
+        userContextDispatch: React.Dispatch<any>
+    }
+) {
     const [currentStep, setCurrentStep] = useState(0);
     const [locationToken, setLocationToken] = useState<string>();
     const [currentLocation, setCurrentLocation] = useState<UserConfigLocation>({city: null});
 
+    useEffect(() => {
+        (() => {
+            if(!currentLocation.city) {
+                return;
+            }
+
+            userContextDispatch({
+                type: LoginTypes.UpdateLocation,
+                payload: {
+                    location: currentLocation
+                }
+            });
+        })();
+    }, [currentLocation])
+
     return (
-        <Overlay overlayStyle={tw`h-4/6 w-5/6 bg-indigo-50`} isVisible={isVisible} onBackdropPress={() => {}}>
+        <Overlay
+            overlayStyle={tw`h-4/6 w-5/6 bg-indigo-50`}
+            isVisible={isVisible} onBackdropPress={() => {}}>
             {
                 currentStep === 0 && <InitUserWelcome setCurrentStep={setCurrentStep} setLocationToken={setLocationToken}/>}
             {
@@ -25,7 +53,11 @@ export default function InitialUserSetup({setVisible, isVisible}: {setVisible: a
                     locationToken={locationToken}
                 />
             }
-            {/* {currentStep === 2 && <InitUserStep3 setCurrentStep={setCurrentStep}/>} */}
+            {
+                currentStep === 2 
+                    &&
+                <InitUserStepPersonalDescription setCurrentStep={setCurrentStep}/>
+            }
         </Overlay>
     )
 }

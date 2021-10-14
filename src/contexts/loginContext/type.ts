@@ -1,3 +1,11 @@
+export type PlayerQualities = {
+    foot: string,
+    position: string,
+    description: string | null,
+    age: number | null,
+    team: string | null
+}
+
 export interface UserLoginData {
     id?: string,
     isLogged: boolean,
@@ -5,7 +13,8 @@ export interface UserLoginData {
     userName?: string,
     profilePictureUrl?: string,
     initialSetup: boolean,
-    location?: string,
+    location: string
+    playerQualities: PlayerQualities
 }
 
 export type InitialStateType = {
@@ -23,7 +32,9 @@ export type LoginContextType = {
 }
 
 export enum LoginTypes {
-    Update = 'UPDATE_USER',
+    UpdateLogin = 'UPDATE_USER_LOGIN',
+    UpdateQualities = 'UPDATE_USER_QUALITIES',
+    UpdateLocation = 'UPDATE_USER_LOCATION',
 }
 
 export type ActionMap<M extends { [index: string]: any}> = {
@@ -40,7 +51,9 @@ export type ActionMap<M extends { [index: string]: any}> = {
 };
 
 export type LoginPayload = {
-    [LoginTypes.Update] : UserLoginData
+    [LoginTypes.UpdateLogin] : UserLoginData,
+    [LoginTypes.UpdateQualities]: UserLoginData,
+    [LoginTypes.UpdateLocation]: UserLoginData
 }
 
 export type LoginActions = ActionMap<LoginPayload>[keyof ActionMap<LoginPayload>];

@@ -10,7 +10,12 @@ import SelectLocationManual from '../atoms/SelectLocationManual';
 import { Alert } from 'react-native';
 
 export default function InitUserStepLocation(
-    { setCurrentStep, currentLocation, setCurrentLocation, locationToken }: {
+    {
+        setCurrentStep,
+        currentLocation,
+        setCurrentLocation,
+        locationToken
+    }: {
         setCurrentStep: Dispatch<SetStateAction<number>>,
         currentLocation: UserConfigLocation,
         setCurrentLocation: React.Dispatch<React.SetStateAction<UserConfigLocation>>,
@@ -53,7 +58,7 @@ export default function InitUserStepLocation(
         if(!currentLocation.city) {
             Alert.alert('Invalid Location', 'You should set your location');
         } else {
-            return;
+            setCurrentStep(2);
         }
     }
 

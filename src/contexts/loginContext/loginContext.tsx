@@ -10,8 +10,15 @@ const initialState: InitialStateType = {
         token: '',
         userName: '',
         profilePictureUrl: '',
+        initialSetup: false,
         location: '',
-        initialSetup: true,
+        playerQualities: {
+            foot: '',
+            position: '',
+            description: '',
+            age: null,
+            team: ''
+        }
     }
 };
 
