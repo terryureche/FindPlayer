@@ -5,6 +5,7 @@ export interface UserLoginData {
     userName?: string,
     profilePictureUrl?: string,
     initialSetup: boolean,
+    location?: string,
 }
 
 export type InitialStateType = {

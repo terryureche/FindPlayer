@@ -19,10 +19,17 @@ export default function ExternalPickerCountry(
 
 
     useEffect(() => {
-        //todo handle for errors in the future
         if(data) {
             const localData: CountryType[] = data.data as CountryType[];
-            setCountries(localData);
+            const localCounties: CountryType[] = [
+                ...[{
+                    country_name: '',
+                    country_short_name: '',
+                    country_phone_code: ''
+                }],
+                ...localData
+            ];
+            setCountries(localCounties);
         }
     }, [isLoading]);
 

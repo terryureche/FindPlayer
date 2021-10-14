@@ -7,20 +7,18 @@ import * as Location from 'expo-location';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UserConfigLocation } from '../../types/types';
 import SelectLocationManual from '../atoms/SelectLocationManual';
+import { Alert } from 'react-native';
 
 export default function InitUserStep2(
-    { setCurrentStep, locationToken }: {
+    { setCurrentStep, currentLocation, setCurrentLocation, locationToken }: {
         setCurrentStep: Dispatch<SetStateAction<number>>,
+        currentLocation: UserConfigLocation,
+        setCurrentLocation: React.Dispatch<React.SetStateAction<UserConfigLocation>>,
         locationToken: string | undefined
     }
 ) {
     const [spinnerVisibility, setSpinnerVisibility] = useState<boolean>(true);
     const [showManualSelect, setShowManualSelect] = useState<boolean>(false);
-    const [showChangeLocationLabel, setShowChangeLocationLabel] = useState<boolean>(false);
-    const [showChangeLocaiton, setShowChangeLocation] = useState<boolean>(false);
-    const [currentLocation, setCurrentLocation] = useState<UserConfigLocation>({
-        city: null,
-    });
 
     useEffect(() => {
         (async () => {
@@ -30,6 +28,7 @@ export default function InitUserStep2(
 
                 if(status !== 'granted') {
                     setShowManualSelect(true);
+                    throw 'No permission from user.';
                 }
 
                 let coord: Location.LocationObject = await Location.getCurrentPositionAsync({});
@@ -40,9 +39,8 @@ export default function InitUserStep2(
                 let location = await Location.reverseGeocodeAsync(reverseLocation);
 
                 if(location.length > 0) {
-                    setShowManualSelect(true);
+                    setShowManualSelect(false);
                     setCurrentLocation({city: location[0].city});
-                    setShowChangeLocationLabel(true);
                 }
             } catch(e) {
                 setSpinnerVisibility(false);
@@ -51,6 +49,13 @@ export default function InitUserStep2(
         })();
     }, [])
 
+    const goToNextStep = () => {
+        if(!currentLocation.city) {
+            Alert.alert('Invalid Location', 'You should set your location');
+        } else {
+            return;
+        }
+    }
 
     return (
         <View style={tw`bg-indigo-50`}>
@@ -66,7 +71,7 @@ export default function InitUserStep2(
             </Text>
             <View style={tw`bg-indigo-50 flex items-center`}>
                 {
-                    !showChangeLocaiton
+                    !showManualSelect
                     &&
                     <Image
                         style={tw`h-28 w-36 mt-12`}
@@ -75,18 +80,34 @@ export default function InitUserStep2(
                 }
                 <View style={tw`bg-indigo-50`}>
                     {
-                        !showChangeLocaiton
-                        &&
-                        <Text style={tw`text-blue-900 mt-10`}>Current Location: {currentLocation.city}</Text>
+                        <Text style={tw`text-blue-900 mt-10 text-center`}>Current Location: {currentLocation.city}</Text>
                     }
                     {
-                        showChangeLocationLabel
+                        !showManualSelect
                         &&
-                        <Button type="clear" title="Change Location" onPress={() => setShowChangeLocation(true)}/>
+                        <Button
+                            type="clear"
+                            title="Change Location"
+                            onPress={() => {
+                                setShowManualSelect(true);
+                            }}
+                        />
                     }
-                    <SelectLocationManual token={locationToken}/>
+                    {
+                        showManualSelect
+                        &&
+                        <SelectLocationManual
+                            token={locationToken}
+                            setShowManualSelect={setShowManualSelect}
+                            setCurrentLocation={setCurrentLocation}
+                        />
+                    }
                 </View>
-                <Button buttonStyle={tw`w-48 mt-20`} title="Continue" onPress={() => setCurrentStep(1)}/>
+                {
+                !showManualSelect
+                &&
+                <Button buttonStyle={tw`w-48 mt-20`} title="Continue" onPress={goToNextStep}/>
+                }
             </View>
         </View>
     )

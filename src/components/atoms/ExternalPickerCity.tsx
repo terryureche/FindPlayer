@@ -21,7 +21,12 @@ export default function ExternalPickerCity(
     useEffect(() => {
         if(data) {
             const localData: CityType[] = data.data as CityType[];
-            setCities(localData);
+            const localCities: CityType[] = [
+                ...[{city_name: ''}],
+                ...localData
+            ];
+
+            setCities(localCities);
         }
     }, [isLoading]);
 

@@ -10,7 +10,8 @@ export const userReducer = (state: UserLoginData, action: LoginActions) => {
                     token: action.payload.token,
                     userName: action.payload.userName,
                     profilePictureUrl: action.payload.profilePictureUrl,
-                    initialSetup: action.payload.initialSetup
+                    initialSetup: action.payload.initialSetup,
+                    location: action.payload.location,
                 }
             );
         default:

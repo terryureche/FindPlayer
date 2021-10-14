@@ -18,10 +18,14 @@ export default function ExternalPickerState(
     const { isLoading, isError, data, error } = useQuery<LocationRequestType>([name, country], fetchLocation,);
 
     useEffect(() => {
-        //todo handle for errors in the future
         if(data) {
             const localData: StateType[] = data.data as StateType[];
-            setStates(localData);
+            const localStates: StateType[] = [
+                ...[{state_name: ''}],
+                ...localData
+            ];
+
+            setStates(localStates);
         }
     }, [isLoading]);
 
@@ -42,7 +46,5 @@ export default function ExternalPickerState(
                 )
             }
         </Picker>
-
-    )
-
+    );
 }

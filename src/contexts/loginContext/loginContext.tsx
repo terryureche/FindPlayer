@@ -10,6 +10,7 @@ const initialState: InitialStateType = {
         token: '',
         userName: '',
         profilePictureUrl: '',
+        location: '',
         initialSetup: true,
     }
 };

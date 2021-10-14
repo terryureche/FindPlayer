@@ -1,17 +1,33 @@
 import { useState } from "react";
+import { Alert } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import React from "react";
 import { Text, View } from '../Themed';
-import {Picker} from '@react-native-picker/picker';
 import axios from "axios";
+import { Button } from "react-native-elements";
 import ExternalPickerCountry from "./ExternalPickerCountry";
 import ExternalPickerState from "./ExternalPickerState";
 import ExternalPickerCity from "./ExternalPickerCity";
+import { UserConfigLocation } from "../../types/types";
 
-export default function SelectLocationManual({token}: {token: string | undefined}) {
+export default function SelectLocationManual(
+    {
+        token,
+        setShowManualSelect,
+        setCurrentLocation,
+    }:
+    {
+        token: string | undefined,
+        setShowManualSelect: React.Dispatch<React.SetStateAction<boolean>>,
+        setCurrentLocation: React.Dispatch<React.SetStateAction<UserConfigLocation>>,
+}) {
     const [country, setCountry] = useState<string>('');
     const [state, setState] = useState<string>('');
     const [city, setCity] = useState<string>('');
+
+    const invalidSave = (errorMessage: string) => {
+        Alert.alert('Invalid Location', errorMessage);
+    }
 
     const fetchCountry = async () => {
         const resp = axios.get('https://www.universal-tutorial.com/api/countries/', {
@@ -25,7 +41,6 @@ export default function SelectLocationManual({token}: {token: string | undefined
     }
 
     const fetchState = async () => {
-        debugger;
         if(country) {
             const resp = axios.get(`https://www.universal-tutorial.com/api/states/${country}`, {
                 headers: {
@@ -51,26 +66,64 @@ export default function SelectLocationManual({token}: {token: string | undefined
         }
     }
 
+    const saveLocation = async () => {
+        if(!country) {
+            invalidSave('Please select a country');
+            return;
+        }
+
+        if(!state) {
+            invalidSave('Please select a state');
+            return;
+        }
+
+        if(!city) {
+            setCurrentLocation({city: state});
+        } else {
+            setCurrentLocation({city: city});
+        }
+
+        setShowManualSelect(false);
+    }
+
+    const cancelLocation = async () => {
+        setShowManualSelect(false);
+    }
+
     return (
-        <View style={tw`bg-indigo-50 flex-row`}>
-            <ExternalPickerCountry
-                fetchLocation={fetchCountry}
-                name="country"
-                setCountry={setCountry}
-                country={country}
+        <View>
+            <View style={tw`bg-indigo-50 flex-row`}>
+                <ExternalPickerCountry
+                    fetchLocation={fetchCountry}
+                    name="country"
+                    setCountry={setCountry}
+                    country={country}
+                />
+                <ExternalPickerState
+                    fetchLocation={fetchState}
+                    name="state"
+                    setState={setState}
+                    state={state}
+                    country={country}/>
+                <ExternalPickerCity
+                    fetchLocation={fetchCity}
+                    name="city"
+                    setCity={setCity}
+                    city={city}
+                    state={state}
+                />
+            </View>
+            <Button
+                buttonStyle={tw`mt-8`}
+                title="Set Location"
+                type="solid"
+                onPress={saveLocation}
             />
-            <ExternalPickerState
-                fetchLocation={fetchState}
-                name="state"
-                setState={setState}
-                state={state}
-                country={country}/>
-            <ExternalPickerCity
-                fetchLocation={fetchCity}
-                name="city"
-                setCity={setCity}
-                city={city}
-                state={state}
+            <Button
+                buttonStyle={tw`mt-2`}
+                title="Cancel"
+                type="solid"
+                onPress={cancelLocation}
             />
         </View>
     )
