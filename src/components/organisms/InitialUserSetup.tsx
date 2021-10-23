@@ -13,7 +13,7 @@ export default function InitialUserSetup({
         isVisible,
         userContextDispatch,
     }: {
-        setVisible: any,
+        setVisible: React.Dispatch<React.SetStateAction<boolean>>,
         isVisible: boolean,
         userContextDispatch: React.Dispatch<any>
     }
@@ -54,9 +54,9 @@ export default function InitialUserSetup({
                 />
             }
             {
-                currentStep === 2 
+                currentStep === 2
                     &&
-                <InitUserStepPersonalDescription setCurrentStep={setCurrentStep}/>
+                <InitUserStepPersonalDescription setVisible={setVisible} setCurrentStep={setCurrentStep}/>
             }
         </Overlay>
     )

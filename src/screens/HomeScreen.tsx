@@ -9,9 +9,10 @@ import { LoginContext } from '../contexts/loginContext/loginContext';
 
 export default function HomeScreen({ route, navigation }: RootTabScreenProps<'Home'>) {
   const { state, dispatch } = useContext(LoginContext);
-  const userConfiguration = route.params.initialSetup || true;
 
-  const [ isUserConfigured, setIsUserConfigured  ] = useState(userConfiguration);
+  const userConfiguration = state.user.initialSetup || false;
+
+  const [ isUserConfigured, setIsUserConfigured ] = useState<boolean>(userConfiguration);
 
   return (
     <View style={styles.container}>

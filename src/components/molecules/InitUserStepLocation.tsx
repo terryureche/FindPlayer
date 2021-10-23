@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import { Button, Overlay } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { Text, View } from '../Themed';
 import { Image } from 'react-native-elements';
 import tw from 'tailwind-react-native-classnames';
