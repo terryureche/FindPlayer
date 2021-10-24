@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Button, Overlay } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { Text, View } from '../Themed';
 import { Image } from 'react-native-elements';
-import tw from 'tailwind-react-native-classnames';
 import { UniversalDataToken } from '../../constants/Tokens';
 import axios from 'axios';
+import tw from "../../utils/tailwind";
 
 export default function InitUserWelcome(
     {setCurrentStep, setLocationToken}:

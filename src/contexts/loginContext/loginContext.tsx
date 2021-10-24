@@ -13,8 +13,8 @@ const initialState: InitialStateType = {
         initialSetup: false,
         location: '',
         playerQualities: {
-            foot: '',
-            position: '',
+            legs: '',
+            position: [],
             description: '',
             age: null,
             team: ''

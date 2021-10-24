@@ -1,6 +1,6 @@
 export type PlayerQualities = {
-    foot: string,
-    position: string,
+    legs: string,
+    position: number[],
     description: string | null,
     age: number | null,
     team: string | null

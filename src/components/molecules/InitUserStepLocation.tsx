@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import { Button, Overlay } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { Text, View } from '../Themed';
 import { Image } from 'react-native-elements';
-import tw from 'tailwind-react-native-classnames';
 import * as Location from 'expo-location';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UserConfigLocation } from '../../types/types';
 import SelectLocationManual from '../atoms/SelectLocationManual';
 import { Alert } from 'react-native';
+import tw from "../../utils/tailwind";
 
 export default function InitUserStepLocation(
     {

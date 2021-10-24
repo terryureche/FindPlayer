@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, {useContext} from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName } from 'react-native';
 import LoginProfilePicture from '../components/atoms/LoginProfilePicture';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -23,8 +23,8 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { LoginProvider } from '../contexts/loginContext/loginContext';
 import { LoginContext } from '../contexts/loginContext/loginContext';
 import { View } from '../components/Themed';
-import tw from 'tailwind-react-native-classnames';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import tw from "../utils/tailwind";
 
 const queryClient = new QueryClient();
 

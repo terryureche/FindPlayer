@@ -21,6 +21,7 @@ export const userReducer = (state: UserLoginData, action: LoginActions) => {
         case LoginTypes.UpdateQualities:
                     return Object.assign({}, state,
                         {
+                            initialSetup: action.payload.initialSetup,
                             playerQualities: action.payload.playerQualities
                         })
         default:

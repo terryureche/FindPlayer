@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Overlay } from 'react-native-elements';
-import { Text } from '../Themed';
-import tw from 'tailwind-react-native-classnames';
+import tw from "../../utils/tailwind";
 import InitUserWelcome from '../molecules/InitUserWelcome';
 import InitUserStepLocation from '../molecules/InitUserStepLocation';
 import { UserConfigLocation } from '../../types/types';
@@ -13,7 +12,7 @@ export default function InitialUserSetup({
         isVisible,
         userContextDispatch,
     }: {
-        setVisible: any,
+        setVisible: React.Dispatch<React.SetStateAction<boolean>>,
         isVisible: boolean,
         userContextDispatch: React.Dispatch<any>
     }
@@ -54,9 +53,9 @@ export default function InitialUserSetup({
                 />
             }
             {
-                currentStep === 2 
+                currentStep === 2
                     &&
-                <InitUserStepPersonalDescription setCurrentStep={setCurrentStep}/>
+                <InitUserStepPersonalDescription setVisible={setVisible} setCurrentStep={setCurrentStep}/>
             }
         </Overlay>
     )
