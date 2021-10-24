@@ -1,7 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import tw from "tailwind-react-native-classnames";
+import tw from 'twrnc';
 import { LocationRequestType, StateType } from "../../types/types";
 
 export default function ExternalPickerState(

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert } from "react-native";
-import tw from "tailwind-react-native-classnames";
+import tw from 'twrnc';
 import React from "react";
 import { Text, View } from '../Themed';
 import axios from "axios";

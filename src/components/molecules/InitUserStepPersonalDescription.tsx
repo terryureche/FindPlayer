@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState, useContext } from 'react';
-import tw from 'tailwind-react-native-classnames';
+import tw from 'twrnc';
 import { Button, ButtonGroup } from 'react-native-elements';
 import { Text, View } from '../Themed';
 import { ScrollView, TextInput } from 'react-native';
