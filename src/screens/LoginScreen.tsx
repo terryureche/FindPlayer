@@ -46,18 +46,6 @@ export default function Login({ navigation }: RootTabScreenProps<'TabOne'>) {
           }
         );
     }
-  {/*<Button*/}
-  {/*    onPress={login}*/}
-  {/*    title="Create User"*/}
-  {/*/>*/}
-  {/*<Button*/}
-  {/*    onPress={login}*/}
-  {/*    title="Facebook"*/}
-  {/*/>*/}
-  {/*<Button*/}
-  {/*    onPress={guess}*/}
-  {/*    title="Continue as Guess"*/}
-  {/*/>*/}
 
     async function guess() {
       dispatch({
