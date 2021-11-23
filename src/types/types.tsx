@@ -19,6 +19,8 @@ export type RootStackParamList = {
   NotFound: undefined;
   Login: undefined;
   Search: undefined;
+  SignUp: undefined;
+  Auth: NavigatorScreenParams<LoginList>;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -26,10 +28,15 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   Screen
 >;
 
+export type LoginList = {
+  Login: undefined;
+  SignUp: undefined;
+}
+
 export type RootTabParamList = {
   Home: {initialSetup: boolean};
   TabOne: undefined;
-  TabTwo: {initialSetup: boolean};
+  MyAccount: {initialSetup: boolean};
   Search: undefined;
 };
 

@@ -7,7 +7,7 @@ module.exports = {
             addUtilities({
                 'dark-green': {
                     'backgroundColor': 'rgb(23, 46, 35)'
-                }
+                },
             });
         }),
     ],

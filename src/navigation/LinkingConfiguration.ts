@@ -8,15 +8,17 @@ import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
 import { RootStackParamList } from '../types/types';
+import MyAccountScreen from "../screens/MyAccountScreen";
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      Login: {
+      Auth: {
         screens: {
-          Login: 'login'
-        }
+          Login: 'login',
+          SignUp: 'signup'
+        },
       },
       Root: {
         screens: {
@@ -30,9 +32,9 @@ const linking: LinkingOptions<RootStackParamList> = {
               TabSearch: 'search',
             },
           },
-          TabTwo: {
+          MyAccount: {
             screens: {
-              TabTwoScreen: 'two',
+              MyAccountScreen: 'two',
             },
           },
         },

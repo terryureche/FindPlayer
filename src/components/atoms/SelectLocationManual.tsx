@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { Alert } from "react-native";
+import React, {useState} from "react";
+import {Alert} from "react-native";
 import tw from 'twrnc';
-import React from "react";
-import { Text, View } from '../Themed';
+import {View} from '../Themed';
 import axios from "axios";
-import { Button } from "react-native-elements";
+import {Button} from "react-native-elements";
 import ExternalPickerCountry from "./ExternalPickerCountry";
 import ExternalPickerState from "./ExternalPickerState";
 import ExternalPickerCity from "./ExternalPickerCity";
-import { UserConfigLocation } from "../../types/types";
+import {UserConfigLocation} from "../../types/types";
 
 export default function SelectLocationManual(
     {
@@ -30,39 +29,33 @@ export default function SelectLocationManual(
     }
 
     const fetchCountry = async () => {
-        const resp = axios.get('https://www.universal-tutorial.com/api/countries/', {
+        return await axios.get('https://www.universal-tutorial.com/api/countries/', {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
             }
         });
-
-        return resp;
     }
 
     const fetchState = async () => {
         if(country) {
-            const resp = axios.get(`https://www.universal-tutorial.com/api/states/${country}`, {
+            return await axios.get(`https://www.universal-tutorial.com/api/states/${country}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 }
             });
-
-            return resp;
         }
     }
 
     const fetchCity = async () => {
         if(state) {
-            const resp = axios.get(`https://www.universal-tutorial.com/api/cities/${state}`, {
+            return await axios.get(`https://www.universal-tutorial.com/api/cities/${state}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 }
             });
-
-            return resp;
         }
     }
 

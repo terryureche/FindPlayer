@@ -15,9 +15,10 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import HomeScreen from '../screens/HomeScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import MyAccountScreen from '../screens/MyAccountScreen';
 import SearchScreen from '../screens/SearchScreen';
 import LoginScreen from '../screens/LoginScreen';
+import SignUp from "../screens/SignUp";
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types/types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { LoginProvider } from '../contexts/loginContext/loginContext';
@@ -51,7 +52,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Auth" component={Auth} options={{ headerShown: false }} />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -59,6 +60,22 @@ function RootNavigator() {
       </Stack.Group>
     </Stack.Navigator>
   );
+}
+
+function Auth() {
+    return (
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+        />
+      </Stack.Navigator>
+    );
 }
 
 /**
@@ -84,8 +101,11 @@ function BottomTabNavigator() {
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
-            <View>
-              <LoginProfilePicture url={state.user.profilePictureUrl || ""} imageStyle={tw`w-10 h-10 mr-4`}/>
+            <View style={tw`bg-transparent`}>
+              <LoginProfilePicture
+                url={state.user.profilePictureUrl || ""}
+                source={require('./../assets/images/profile-pic-dummy.png')}
+                imageStyle={tw`w-10 h-10 mr-4 bg-transparent`}/>
             </View>
             // <Pressable
             //   onPress={() => navigation.navigate('Modal')}
@@ -111,11 +131,11 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="MyAccount"
+        component={MyAccountScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Account',
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </BottomTab.Navigator>

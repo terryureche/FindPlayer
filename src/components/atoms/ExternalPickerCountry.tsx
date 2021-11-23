@@ -17,7 +17,6 @@ export default function ExternalPickerCountry(
 
     const { isLoading, isError, data, error } = useQuery<LocationRequestType>(name, fetchLocation);
 
-
     useEffect(() => {
         if(data) {
             const localData: CountryType[] = data.data as CountryType[];
@@ -50,7 +49,5 @@ export default function ExternalPickerCountry(
                 )
             }
         </Picker>
-
     )
-
 }

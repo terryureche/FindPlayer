@@ -33,6 +33,7 @@ export type LoginContextType = {
 
 export enum LoginTypes {
     UpdateLogin = 'UPDATE_USER_LOGIN',
+    UpdateLogout = 'UPDATE_USER_LOGOUT',
     UpdateQualities = 'UPDATE_USER_QUALITIES',
     UpdateLocation = 'UPDATE_USER_LOCATION',
 }
@@ -53,7 +54,8 @@ export type ActionMap<M extends { [index: string]: any}> = {
 export type LoginPayload = {
     [LoginTypes.UpdateLogin] : UserLoginData,
     [LoginTypes.UpdateQualities]: UserLoginData,
-    [LoginTypes.UpdateLocation]: UserLoginData
+    [LoginTypes.UpdateLocation]: UserLoginData,
+    [LoginTypes.UpdateLogout]: null;
 }
 
 export type LoginActions = ActionMap<LoginPayload>[keyof ActionMap<LoginPayload>];

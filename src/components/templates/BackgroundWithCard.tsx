@@ -4,7 +4,6 @@ import tw from "../../utils/tailwind";
 import { View } from '../Themed';
 
 export default function BackgroundWithCard({backgroundImagePath, children} : {backgroundImagePath: ImageSourcePropType, children: React.ReactElement}) {
-  console.log(backgroundImagePath);
   return (
     <View>
       <ImageBackground style={tw`h-full w-full`} source={backgroundImagePath}>

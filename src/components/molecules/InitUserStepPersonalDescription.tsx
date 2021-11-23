@@ -7,13 +7,16 @@ import AgePicker from '../atoms/AgePicker';
 import { Alert } from 'react-native';
 import { LoginContext } from '../../contexts/loginContext/loginContext';
 import { LoginTypes } from '../../contexts/loginContext/type';
+import {auth} from "../../services/Firebase/Firebase";
+import firebase from "firebase/compat";
+import useAsyncStorage from "../../hooks/useAsyncStorage";
 
 export default function InitUserStepPersonalDescription({
     setCurrentStep,
-    setVisible,
+    setIsUserConfigured,
 }: {
     setCurrentStep: Dispatch<SetStateAction<number>>,
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsUserConfigured: React.Dispatch<React.SetStateAction<boolean>>,
 
 }) {
     const legsOptions = ['Left', 'Right'];
@@ -24,8 +27,16 @@ export default function InitUserStepPersonalDescription({
     const [description, setDescription] = useState<string>();
     const [team, setTeam] = useState<string>();
     const { state, dispatch } = useContext(LoginContext);
+    const [loginInfo, updateLoginInfo] = useAsyncStorage('login', {
+        id: '',
+        isLogged: false,
+        token: '',
+        userName: '',
+        profilePictureUrl: '',
+        initialSetup: false
+    });
 
-    const saveUserData = () => {
+    const saveUserData = async () => {
         if(selectedLegs.length < 1) {
             Alert.alert('Invalid Legs', 'Please select at least one leg');
 
@@ -38,21 +49,40 @@ export default function InitUserStepPersonalDescription({
             return;
         }
 
+        const playerQualities = {
+            legs: selectedLegs,
+            position: selectedPositions,
+            description,
+            age: selectedAge,
+            team
+        };
+
         dispatch({
             type: LoginTypes.UpdateQualities,
             payload: {
                 initialSetup: true,
-                playerQualities: {
-                    legs: selectedLegs,
-                    position: selectedPositions,
-                    description,
-                    age: selectedAge,
-                    team
-                }
+                playerQualities
             }
         });
 
-        setVisible(false);
+        updateLoginInfo({
+            id: loginInfo.id,
+            isLogged: loginInfo.isLogged,
+            token: loginInfo.token,
+            userName: loginInfo.userName,
+            profilePictureUrl: loginInfo.profilePictureUrl,
+            initialSetup: true
+        });
+
+        setIsUserConfigured(true);
+
+        await firebase.database().ref('users/' + auth.currentUser?.uid).set(
+          {
+              data: {
+                  initialSetup: true,
+              },
+              playerQualities
+          });
     }
 
     return (

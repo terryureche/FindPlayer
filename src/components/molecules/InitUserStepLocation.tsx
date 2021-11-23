@@ -36,10 +36,10 @@ export default function InitUserStepLocation(
                     throw 'No permission from user.';
                 }
 
-                let coord: Location.LocationObject = await Location.getCurrentPositionAsync({});
+                let position: Location.LocationObject = await Location.getCurrentPositionAsync({});
                 let reverseLocation = {
-                    longitude: coord.coords.longitude,
-                    latitude: coord.coords.latitude
+                    longitude: position.coords.longitude,
+                    latitude: position.coords.latitude
                 };
                 let location = await Location.reverseGeocodeAsync(reverseLocation);
 

@@ -1,4 +1,4 @@
-import { LoginActions, LoginTypes, UserLoginData } from "./type";
+import {LoginActions, LoginTypes, UserLoginData} from "./type";
 
 export const userReducer = (state: UserLoginData, action: LoginActions) => {
     switch (action.type) {
@@ -24,6 +24,14 @@ export const userReducer = (state: UserLoginData, action: LoginActions) => {
                             initialSetup: action.payload.initialSetup,
                             playerQualities: action.payload.playerQualities
                         })
+      case LoginTypes.UpdateLogout:
+                    return Object.assign({}, state, {
+                        id: '',
+                        isLogged: false,
+                        token: '',
+                        userName: '',
+                        profilePictureUrl: '',
+                    })
         default:
             return state;
     }

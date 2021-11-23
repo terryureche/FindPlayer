@@ -6,26 +6,38 @@ import InitUserStepLocation from '../molecules/InitUserStepLocation';
 import { UserConfigLocation } from '../../types/types';
 import { LoginTypes } from '../../contexts/loginContext/type';
 import InitUserStepPersonalDescription from '../molecules/InitUserStepPersonalDescription';
+import useAsyncStorage from "../../hooks/useAsyncStorage";
 
 export default function InitialUserSetup({
-        setVisible,
-        isVisible,
+        setIsUserConfigured,
+        isUserConfigured,
         userContextDispatch,
     }: {
-        setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-        isVisible: boolean,
+        setIsUserConfigured: React.Dispatch<React.SetStateAction<boolean>>,
+        isUserConfigured: boolean,
         userContextDispatch: React.Dispatch<any>
     }
 ) {
+    const NOT_LOGIN = {
+        id: '',
+        isLogged: false,
+        token: '',
+        userName: '',
+        profilePictureUrl: ''
+    };
+
     const [currentStep, setCurrentStep] = useState(0);
     const [locationToken, setLocationToken] = useState<string>();
     const [currentLocation, setCurrentLocation] = useState<UserConfigLocation>({city: null});
+    const [loginInfo, updateLoginInfo] = useAsyncStorage('login', NOT_LOGIN);
 
     useEffect(() => {
         (() => {
             if(!currentLocation.city) {
                 return;
             }
+
+            updateLoginInfo(Object.assign({}, loginInfo, {initialSetup: true}));
 
             userContextDispatch({
                 type: LoginTypes.UpdateLocation,
@@ -39,7 +51,7 @@ export default function InitialUserSetup({
     return (
         <Overlay
             overlayStyle={tw`h-4/6 w-5/6 bg-indigo-50`}
-            isVisible={isVisible} onBackdropPress={() => {}}>
+            isVisible={!isUserConfigured} onBackdropPress={() => {}}>
             {
                 currentStep === 0 && <InitUserWelcome setCurrentStep={setCurrentStep} setLocationToken={setLocationToken}/>}
             {
@@ -55,7 +67,7 @@ export default function InitialUserSetup({
             {
                 currentStep === 2
                     &&
-                <InitUserStepPersonalDescription setVisible={setVisible} setCurrentStep={setCurrentStep}/>
+                <InitUserStepPersonalDescription setIsUserConfigured={setIsUserConfigured} setCurrentStep={setCurrentStep}/>
             }
         </Overlay>
     )
